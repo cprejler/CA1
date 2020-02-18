@@ -10,15 +10,59 @@ import javax.persistence.NamedQuery;
 
 @Entity
 @NamedQuery(name = "RenameMe.deleteAllRows", query = "DELETE from RenameMe")
-public class RenameMe implements Serializable {
+public class Member implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    
-    public RenameMe() {
+    private String name;
+    private String studentID;
+    private String github;
+    private String email;
+
+    public Member(String name, String studentID, String github, String email) {
+        this.name = name;
+        this.studentID = studentID;
+        this.github = github;
+        this.email = email;
     }
+    public Member() {
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getStudentID() {
+        return studentID;
+    }
+
+    public void setStudentID(String studentID) {
+        this.studentID = studentID;
+    }
+
+    public String getGithub() {
+        return github;
+    }
+
+    public void setGithub(String github) {
+        this.github = github;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+    
+    
         
     public Long getId() {
         return id;
@@ -33,7 +77,7 @@ public class RenameMe implements Serializable {
     private String dummyStr1;
     private String dummyStr2;
 
-    public RenameMe(String dummyStr1, String dummyStr2) {
+    public Member(String dummyStr1, String dummyStr2) {
         this.dummyStr1 = dummyStr1;
         this.dummyStr2 = dummyStr2;
     }
