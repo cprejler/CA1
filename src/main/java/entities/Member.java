@@ -5,11 +5,15 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 
-
 @Entity
-@NamedQuery(name = "RenameMe.deleteAllRows", query = "DELETE from RenameMe")
+@NamedQueries({
+    @NamedQuery(name = "Member.deleteAllRows", query = "DELETE from Member"),
+    @NamedQuery(name = "Members.getAll", query = "SELECT m from Member m")
+})
+
 public class Member implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -27,6 +31,7 @@ public class Member implements Serializable {
         this.github = github;
         this.email = email;
     }
+
     public Member() {
     }
 
@@ -61,9 +66,7 @@ public class Member implements Serializable {
     public void setEmail(String email) {
         this.email = email;
     }
-    
-    
-        
+
     public Long getId() {
         return id;
     }
@@ -71,35 +74,5 @@ public class Member implements Serializable {
     public void setId(Long id) {
         this.id = id;
     }
-    
-    // TODO, delete this class, or rename to an Entity class that makes sense for what you are about to do
-    // Delete EVERYTHING below if you decide to use this class, it's dummy data used for the initial demo
-    private String dummyStr1;
-    private String dummyStr2;
 
-    public Member(String dummyStr1, String dummyStr2) {
-        this.dummyStr1 = dummyStr1;
-        this.dummyStr2 = dummyStr2;
-    }
-
-    public String getDummyStr1() {
-        return dummyStr1;
-    }
-
-    public void setDummyStr1(String dummyStr1) {
-        this.dummyStr1 = dummyStr1;
-    }
-
-    public String getDummyStr2() {
-        return dummyStr2;
-    }
-
-    public void setDummyStr2(String dummyStr2) {
-        this.dummyStr2 = dummyStr2;
-    }
-    
-    
-    
-
-   
 }

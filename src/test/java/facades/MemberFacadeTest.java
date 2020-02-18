@@ -16,12 +16,12 @@ import utils.EMF_Creator.Strategy;
 
 //Uncomment the line below, to temporarily disable this test
 //@Disabled
-public class FacadeExampleTest {
+public class MemberFacadeTest {
 
     private static EntityManagerFactory emf;
-    private static FacadeExample facade;
+    private static MemberFacade facade;
 
-    public FacadeExampleTest() {
+    public MemberFacadeTest() {
     }
 
     //@BeforeAll
@@ -32,7 +32,7 @@ public class FacadeExampleTest {
                 "dev",
                 "ax2",
                 EMF_Creator.Strategy.CREATE);
-        facade = FacadeExample.getFacadeExample(emf);
+        facade = MemberFacade.getFacadeExample(emf);
     }
 
     /*   **** HINT **** 
@@ -44,7 +44,7 @@ public class FacadeExampleTest {
     @BeforeAll
     public static void setUpClassV2() {
        emf = EMF_Creator.createEntityManagerFactory(DbSelector.TEST,Strategy.DROP_AND_CREATE);
-       facade = FacadeExample.getFacadeExample(emf);
+       facade = MemberFacade.getFacadeExample(emf);
     }
 
     @AfterAll
@@ -59,9 +59,12 @@ public class FacadeExampleTest {
         EntityManager em = emf.createEntityManager();
         try {
             em.getTransaction().begin();
-            em.createNamedQuery("RenameMe.deleteAllRows").executeUpdate();
-            em.persist(new Member("Some txt", "More text"));
-            em.persist(new Member("aaa", "bbb"));
+            em.createNamedQuery("Member.deleteAllRows").executeUpdate();
+            em.persist(new Member("Casper", "cph-cp277", "cprejler", "prejler93@gmail.com"));
+            em.persist(new Member("Jens", "cph-jb361", "JOhlendorff", "jens.ohlendorff@gmail.com"));
+            em.persist(new Member("Aske", "cph-at191", "atthorsen", "thorsen.aske@gmail.com"));
+            em.persist(new Member("Mikkel", "cph-ml596", "Malthorn1", "mikkel@punani.com"));
+            
 
             em.getTransaction().commit();
         } finally {
@@ -73,11 +76,16 @@ public class FacadeExampleTest {
     public void tearDown() {
 //        Remove any data after each test was run
     }
-
-    // TODO: Delete or change this method 
+    
     @Test
-    public void testAFacadeMethod() {
-        assertEquals(2, facade.getRenameMeCount(), "Expects two rows in the database");
+    public void testGetAllMembers(){
+        assertEquals(4, facade.getAllMembers().size(), "Expects 4 rows in the database");
     }
+
+//    // TODO: Delete or change this method 
+//    @Test
+//    public void testAFacadeMethod() {
+//        assertEquals(2, facade.getRenameMeCount(), "Expects two rows in the database");
+//    }
 
 }
