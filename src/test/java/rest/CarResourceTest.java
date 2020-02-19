@@ -93,9 +93,9 @@ public class CarResourceTest {
                 .statusCode(HttpStatus.OK_200.getStatusCode())
                 .body("count", equalTo(2));
     }
-    
+
     @Test
-    public void testGetAllCars(){
+    public void testGetAllCars() {
         given()
                 .contentType("application/json")
                 .get("/cars/all").then()
@@ -103,5 +103,49 @@ public class CarResourceTest {
                 .statusCode(HttpStatus.OK_200.getStatusCode())
                 .body("size()", equalTo(2));
     }
-    
+
+    @Test
+    public void testFilterByYear() {
+        given()
+                .contentType("application/json")
+                .get("cars/year/" + 1999).then()
+                .assertThat()
+                .statusCode(HttpStatus.OK_200.getStatusCode())
+                .body("size()", equalTo(1));
+
+    }
+
+    @Test
+    public void testFilterByMake() {
+        given()
+                .contentType("application/json")
+                .get("cars/make/" + "Ford").then()
+                .assertThat()
+                .statusCode(HttpStatus.OK_200.getStatusCode())
+                .body("size()", equalTo(1));
+
+    }
+
+    @Test
+    public void testFilterByModel() {
+        given()
+                .contentType("application/json")
+                .get("cars/model/" + "E350").then()
+                .assertThat()
+                .statusCode(HttpStatus.OK_200.getStatusCode())
+                .body("size()", equalTo(1));
+
+    }
+
+    @Test
+    public void testFilterByPrice() {
+        given()
+                .contentType("application/json")
+                .get("cars/price/" + 3000).then()
+                .assertThat()
+                .statusCode(HttpStatus.OK_200.getStatusCode())
+                .body("size()", equalTo(1));
+
+    }
+
 }
