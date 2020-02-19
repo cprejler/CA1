@@ -71,6 +71,18 @@ public class MemberFacade {
         
         
        // return members;
+
+    public List<Member> findByID(int id) {
+        EntityManager em = emf.createEntityManager(); 
+        try {
+            TypedQuery<Member> query = em.createQuery("Select m from Member m where m.id = :id", Member.class);
+            query.setParameter("id", id); 
+            return query.getResultList(); 
+        }
+        finally {
+            em.close();
+        }
+    }
         
         
     }
