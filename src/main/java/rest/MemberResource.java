@@ -45,8 +45,7 @@ public class MemberResource {
     @Path("all")
     @Produces({MediaType.APPLICATION_JSON})
     public String getAllMembers(){
-        List<Member> members = FACADE.getAllMembers();
-        System.out.println(members.get(0).getEmail());
+        List<MemberDTO> members = FACADE.getAllMembers();
         String json = new Gson().toJson(members); 
         System.out.println(json);
         return json; 

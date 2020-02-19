@@ -3,6 +3,7 @@ package facades;
 import com.google.gson.Gson;
 import dto.MemberDTO;
 import entities.Member;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -39,19 +40,24 @@ public class MemberFacade {
         return emf.createEntityManager();
     }
     
-    public List<Member> getAllMembers(){
+    public List<MemberDTO> getAllMembers(){
         EntityManager em = getEntityManager();
         
       //  Query query = em.createNamedQuery("Members.getAll");
         //List<Member> members = query.getResultList();
       //  System.out.println("dsafasfsa"+members.size());
         
-        try {
+              try {
             TypedQuery<Member> query = em.createQuery("Select m from Member m", Member.class); 
             System.out.println(query.getResultList().size());
-            //return new Gson().toJson(query.getResultList()); 
-            return query.getResultList(); 
+            //return new Gson().toJson(query.getResultList());
+            List<Member> resultList = query.getResultList(); 
+            List<MemberDTO> DTOResult = new ArrayList();
+        for (Member Member : resultList) {
+            DTOResult.add(new MemberDTO(Member));
         }
+            return DTOResult; 
+              }
         finally {
             em.close();
         }

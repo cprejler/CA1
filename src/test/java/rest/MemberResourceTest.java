@@ -14,6 +14,7 @@ import org.glassfish.grizzly.http.util.HttpStatus;
 import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
 import org.glassfish.jersey.server.ResourceConfig;
 import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.hasItems;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -96,23 +97,23 @@ public class MemberResourceTest {
 //                .body("msg", equalTo("Hello World"));
 //    }
 
-    //@Test
+    @Test
     public void testCount() throws Exception {
-        given()
-                .contentType("application/json")
-                .get("/groupmembers/all").then()
-                .assertThat()
-                .statusCode(HttpStatus.OK_200.getStatusCode())
-                .body("name", equalTo(2));
-    }
-    
-        @Test
-    public void testCount1() throws Exception {
         given()
                 .contentType("application/json")
                 .get("/groupmembers/count").then()
                 .assertThat()
                 .statusCode(HttpStatus.OK_200.getStatusCode())
                 .body("count", equalTo(2));
+    }
+    
+        @Test
+    public void testAll() throws Exception {
+        given()
+                .contentType("application/json")
+                .get("/groupmembers/all").then()
+                .assertThat()
+                .statusCode(HttpStatus.OK_200.getStatusCode())
+                .body("name", hasItems("Casper", "Jens"));
     }
 }
