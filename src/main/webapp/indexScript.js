@@ -14,8 +14,8 @@ function getUserById () {
 // Inside this callback, and only here, the response data is available
    console.log("data",data); 
    
-   let result = data.map(data => data = `Name: ${data.name}, Github: ${data.github}, StudentID: ${data.studentID}`);
-   document.getElementById('userById').innerText = result ;
+   let result = data.map(data => data = `Name: ${data.name}<br> Github: ${data.github}<br> StudentID: ${data.studentID}`);
+   document.getElementById('userById').innerHTML = result ;
 })}
 
 
@@ -26,8 +26,8 @@ fetch(Allurl)
 // Inside this callback, and only here, the response data is available
    console.log("data",data);
    
-   let tableString = "<table> <tr> <th>ID</th><th>Email</th><th>Github</th><th>Name</th><th>StudentID</th></tr>";
-                        let userTableArray = data.map(data => data = `<tr><td>${data.id} </td><td>${data.email} </td><td>${data.github} </td><td>${data.name} </td><td>${data.studentID} </td></tr>`);
+   let tableString = "<table class='table table-bordered table-hover table-sm'> <tr> <th>Github</th><th>Name</th><th>StudentID</th></tr>";
+                        let userTableArray = data.map(data => data = `<tr><td>${data.github} </td><td>${data.name} </td><td>${data.studentID} </td></tr>`);
                         userTableArray.forEach(data => {
                             tableString += data;
                         });

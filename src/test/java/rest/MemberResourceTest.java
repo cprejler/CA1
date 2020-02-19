@@ -116,4 +116,14 @@ public class MemberResourceTest {
                 .statusCode(HttpStatus.OK_200.getStatusCode())
                 .body("name", hasItems("Casper", "Jens"));
     }
+    
+        @Test
+    public void testGetID () throws Exception {
+        given()
+                .contentType("application/json")
+                .get("/groupmembers/members/" + r1.getId()).then()
+                .assertThat()
+                .statusCode(HttpStatus.OK_200.getStatusCode())
+                .body("[0].github", equalTo(r1.getGithub()));   
+    }
 }

@@ -45,10 +45,8 @@ public class MemberResource {
     @Path("all")
     @Produces({MediaType.APPLICATION_JSON})
     public String getAllMembers(){
-        List<MemberDTO> members = FACADE.getAllMembers();
-        String json = new Gson().toJson(members); 
-        System.out.println(json);
-        return json; 
+
+        return GSON.toJson(FACADE.getAllMembers()); 
     }
     
     @GET
@@ -64,12 +62,7 @@ public class MemberResource {
     @Path("members/{id}")
     @Produces({MediaType.APPLICATION_JSON}) 
     public String getMemberById(@PathParam("id") int id) {
-        List<Member> list = FACADE.findByID(id); 
-        ArrayList<MemberDTO> allDTO = new ArrayList() ;
-        for (Member member : list) {
-            allDTO.add((new MemberDTO (member))); 
-        }
-        return new Gson().toJson(allDTO); 
+        return GSON.toJson(FACADE.findByID(id)); 
     }
     
 }
