@@ -7,6 +7,7 @@ import javax.persistence.EntityManagerFactory;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -58,7 +59,7 @@ public class CarFacadeTest {
         EntityManager em = emf.createEntityManager();
         try {
             em.getTransaction().begin();
-            em.createNamedQuery("Member.deleteAllRows").executeUpdate();
+            em.createNamedQuery("Cars.deleteAllRows").executeUpdate();
             em.persist(new Car(1997, "Ford", "E350", 3000));
             em.persist(new Car(1999, "Chevy", "Venture", 4900));
             em.persist(new Car(2000, "Chevy", "Venture", 5000));
@@ -82,8 +83,23 @@ public class CarFacadeTest {
         assertEquals(5, facade.getAllCars().size(), "Expects 5 rows in the database");
     }
     
+    @Test
+    public void testFilterByYear(){
+        assertEquals(2000, facade.filterByYear(2000).get(0).getYear());
+    }
     
-
+    @Test
+    public void testFilterByMake(){
+        assertTrue(facade.filterByMake("Volvo").get(0).getMake().contains("Volvo"));
+    }
+    @Test
+    public void testFilterByModel(){
+        assertTrue(facade.filterByModel("Venture").get(0).getModel().contains("Venture"));
+    }
+    @Test
+    public void testFilterByPrice(){
+        assertEquals(4900, facade.filterByPrice(4900.0).get(0).getPrice(),0.1);
+    }
 
 
 }

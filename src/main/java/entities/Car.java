@@ -21,7 +21,11 @@ import javax.persistence.NamedQuery;
 @Entity
 @NamedQueries({
     @NamedQuery(name = "Cars.deleteAllRows", query = "DELETE from Car"),
-    @NamedQuery(name = "Cars.getAll", query = "SELECT c from Car c")
+    @NamedQuery(name = "Cars.getAll", query = "SELECT c from Car c"),
+    @NamedQuery(name = "Cars.filterByMake", query = "SELECT c FROM Car c WHERE c.make = :make "),
+    @NamedQuery(name = "Cars.filterByYear", query = "SELECT c FROM Car c WHERE c.year = :year "),
+    @NamedQuery(name = "Cars.filterByModel", query = "SELECT c FROM Car c WHERE c.model = :model "),
+    @NamedQuery(name = "Cars.filterByPrice", query = "SELECT c FROM Car c WHERE c.price = :price "),
 })
 public class Car implements Serializable {
 
