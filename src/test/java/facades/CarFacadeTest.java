@@ -108,8 +108,8 @@ public class CarFacadeTest {
         assertFalse(facade.filterByModel("Venture").isEmpty());
         assertTrue(facade.filterByModel("Venture").get(0).getModel().contains("Venture"));
         assertTrue(facade.filterByModel("Venture").get(0).getMake().contains("Chevy"));
-        assertEquals(1999, facade.filterByModel("Venture").get(0).getYear());
-        assertEquals(4900, facade.filterByModel("Venture").get(0).getPrice(), 0.1);
+        assertEquals(2000, facade.filterByModel("Venture").get(0).getYear());
+        assertEquals(5000, facade.filterByModel("Venture").get(0).getPrice(), 0.1);
         
     }
     @Test
