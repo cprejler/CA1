@@ -6,6 +6,7 @@ import dto.MemberDTO;
 import entities.Member;
 import utils.EMF_Creator;
 import facades.MemberFacade;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManagerFactory;
 import javax.ws.rs.Consumes;
@@ -59,6 +60,19 @@ public class MemberResource {
         
         return "{\"count\":" + count + "}";
     }
+    
+    @GET
+    @Path("members/{id}")
+    @Produces({MediaType.APPLICATION_JSON}) 
+    public String getMemberById(@PathParam("id") int id) {
+        List<Member> list = FACADE.findByID(id); 
+        ArrayList<MemberDTO> allDTO = new ArrayList() ;
+        for (Member member : list) {
+            allDTO.add((new MemberDTO (member))); 
+        }
+        return new Gson().toJson(allDTO); 
+    }
+    
 }
  
 
