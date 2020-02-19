@@ -44,8 +44,8 @@ public class CarFacadeTest {
      */
     @BeforeAll
     public static void setUpClassV2() {
-       emf = EMF_Creator.createEntityManagerFactory(DbSelector.TEST,Strategy.DROP_AND_CREATE);
-       facade = CarFacade.getFacadeExample(emf);
+        emf = EMF_Creator.createEntityManagerFactory(DbSelector.TEST, Strategy.DROP_AND_CREATE);
+        facade = CarFacade.getFacadeExample(emf);
     }
 
     @AfterAll
@@ -66,7 +66,6 @@ public class CarFacadeTest {
             em.persist(new Car(2000, "Chevy", "Venture", 5000));
             em.persist(new Car(1996, "Jeep", "Grand Cherokee", 4799));
             em.persist(new Car(2005, "Volvo", "V70", 44799));
-            
 
             em.getTransaction().commit();
         } finally {
@@ -78,14 +77,14 @@ public class CarFacadeTest {
     public void tearDown() {
 //        Remove any data after each test was run
     }
-    
+
     @Test
-    public void testGetAllCars(){
+    public void testGetAllCars() {
         assertEquals(5, facade.getAllCars().size(), "Expects 5 rows in the database");
     }
-    
+
     @Test
-    public void testFilterByYear(){
+    public void testFilterByYear() {
         assertFalse(facade.filterByYear(2000).isEmpty());
         assertEquals(2000, facade.filterByYear(2000).get(0).getYear());
         assertTrue(facade.filterByYear(2000).get(0).getModel().contains("Venture"));
@@ -93,33 +92,39 @@ public class CarFacadeTest {
         assertEquals(5000, facade.filterByYear(2000).get(0).getPrice(), 0.1);
 
     }
-    
+
     @Test
-    public void testFilterByMake(){
+    public void testFilterByMake() {
         assertFalse(facade.filterByMake("Volvo").isEmpty());
         assertTrue(facade.filterByMake("Volvo").get(0).getMake().contains("Volvo"));
         assertTrue(facade.filterByMake("Volvo").get(0).getModel().contains("V70"));
         assertEquals(2005, facade.filterByMake("Volvo").get(0).getYear());
         assertEquals(44799, facade.filterByMake("Volvo").get(0).getPrice(), 0.1);
-        
+
     }
+
     @Test
-    public void testFilterByModel(){
-        assertFalse(facade.filterByModel("Venture").isEmpty());
-        assertTrue(facade.filterByModel("Venture").get(0).getModel().contains("Venture"));
-        assertTrue(facade.filterByModel("Venture").get(0).getMake().contains("Chevy"));
-        assertEquals(2000, facade.filterByModel("Venture").get(0).getYear());
-        assertEquals(5000, facade.filterByModel("Venture").get(0).getPrice(), 0.1);
-        
+    public void testFilterByModel() {
+        //Run the test 5 times to make sure there are no deviations in the order gathered from database
+        for (int i = 0; i < 5; i++) {
+            Car car = facade.filterByModel("Venture").get(0);
+            assertFalse(facade.filterByModel("Venture").isEmpty());
+            assertTrue(facade.filterByModel("Venture").get(0).getModel().contains("Venture"));
+            assertTrue(facade.filterByModel("Venture").get(0).getMake().contains("Chevy"));
+            assertEquals(2000, car.getYear());
+            assertEquals(5000, car.getPrice(), 0.1);
+
+        }
+
     }
+
     @Test
-    public void testFilterByPrice(){
+    public void testFilterByPrice() {
         assertFalse(facade.filterByPrice(4900.0).isEmpty());
-        assertEquals(4900, facade.filterByPrice(4900.0).get(0).getPrice(),0.1);
+        assertEquals(4900, facade.filterByPrice(4900.0).get(0).getPrice(), 0.1);
         assertEquals(1999, facade.filterByPrice(4900.0).get(0).getYear());
         assertTrue(facade.filterByPrice(4900.0).get(0).getModel().contains("Venture"));
         assertTrue(facade.filterByPrice(4900.0).get(0).getMake().contains("Chevy"));
     }
-
 
 }
