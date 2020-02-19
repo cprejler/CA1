@@ -1,7 +1,7 @@
 package facades;
 
+import entities.Car;
 import utils.EMF_Creator;
-import entities.Member;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import org.junit.jupiter.api.AfterAll;
@@ -10,18 +10,17 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import utils.Settings;
 import utils.EMF_Creator.DbSelector;
 import utils.EMF_Creator.Strategy;
 
 //Uncomment the line below, to temporarily disable this test
 //@Disabled
-public class MemberFacadeTest {
+public class CarFacadeTest {
 
     private static EntityManagerFactory emf;
-    private static MemberFacade facade;
+    private static CarFacade facade;
 
-    public MemberFacadeTest() {
+    public CarFacadeTest() {
     }
 
     //@BeforeAll
@@ -32,7 +31,7 @@ public class MemberFacadeTest {
                 "dev",
                 "ax2",
                 EMF_Creator.Strategy.CREATE);
-        facade = MemberFacade.getFacadeExample(emf);
+        facade = CarFacade.getFacadeExample(emf);
     }
 
     /*   **** HINT **** 
@@ -44,7 +43,7 @@ public class MemberFacadeTest {
     @BeforeAll
     public static void setUpClassV2() {
        emf = EMF_Creator.createEntityManagerFactory(DbSelector.TEST,Strategy.DROP_AND_CREATE);
-       facade = MemberFacade.getFacadeExample(emf);
+       facade = CarFacade.getFacadeExample(emf);
     }
 
     @AfterAll
@@ -60,10 +59,11 @@ public class MemberFacadeTest {
         try {
             em.getTransaction().begin();
             em.createNamedQuery("Member.deleteAllRows").executeUpdate();
-            em.persist(new Member("Casper", "cph-cp277", "cprejler", "prejler93@gmail.com"));
-            em.persist(new Member("Jens", "cph-jb361", "JOhlendorff", "jens.ohlendorff@gmail.com"));
-            em.persist(new Member("Aske", "cph-at191", "atthorsen", "thorsen.aske@gmail.com"));
-            em.persist(new Member("Mikkel", "cph-ml596", "Malthorn1", "mikkel@punani.com"));
+            em.persist(new Car(1997, "Ford", "E350", 3000));
+            em.persist(new Car(1999, "Chevy", "Venture", 4900));
+            em.persist(new Car(2000, "Chevy", "Venture", 5000));
+            em.persist(new Car(1996, "Jeep", "Grand Cherokee", 4799));
+            em.persist(new Car(2005, "Volvo", "V70", 44799));
             
 
             em.getTransaction().commit();
@@ -78,16 +78,12 @@ public class MemberFacadeTest {
     }
     
     @Test
-    public void testGetAllMembers(){
-        assertEquals(4, facade.getAllMembers().size(), "Expects 4 rows in the database");
+    public void testGetAllCars(){
+        assertEquals(5, facade.getAllCars().size(), "Expects 5 rows in the database");
     }
     
     
 
-//    // TODO: Delete or change this method 
-//    @Test
-//    public void testAFacadeMethod() {
-//        assertEquals(2, facade.getRenameMeCount(), "Expects two rows in the database");
-//    }
+
 
 }
