@@ -2,25 +2,17 @@ package rest;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import dto.MemberDTO;
-import entities.Member;
+import facades.CarFacade;
 import utils.EMF_Creator;
-import facades.MemberFacade;
-import java.util.ArrayList;
-import java.util.List;
 import javax.persistence.EntityManagerFactory;
-import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 //Todo Remove or change relevant parts before ACTUAL use
-@Path("groupmembers")
-public class MemberResource {
+@Path("cars")
+public class CarResource {
 
     private static final EntityManagerFactory EMF = EMF_Creator.createEntityManagerFactory(
                 "pu",
@@ -32,7 +24,7 @@ public class MemberResource {
     //An alternative way to get the EntityManagerFactory, whithout having to type the details all over the code
     //EMF = EMF_Creator.createEntityManagerFactory(DbSelector.DEV, Strategy.CREATE);
     
-    private static final MemberFacade FACADE =  MemberFacade.getFacadeExample(EMF);
+    private static final CarFacade FACADE =  CarFacade.getFacadeExample(EMF);
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
             
     @GET
@@ -44,35 +36,18 @@ public class MemberResource {
     @GET
     @Path("all")
     @Produces({MediaType.APPLICATION_JSON})
-    public String getAllMembers(){
-        List<Member> members = FACADE.getAllMembers();
-        System.out.println(members.get(0).getEmail());
-        String json = new Gson().toJson(members); 
-        System.out.println(json);
-        return json; 
+    public String getAllCars(){
+        return GSON.toJson(FACADE.getAllCars());
     }
     
     @GET
     @Path("count")
     @Produces({MediaType.APPLICATION_JSON}) 
-    public String getMembersCount () {
-        long count = FACADE.getMembersCount(); 
+    public String getCarCount () {
+        long count = FACADE.getCarCount(); 
         
         return "{\"count\":" + count + "}";
     }
-    
-    @GET
-    @Path("members/{id}")
-    @Produces({MediaType.APPLICATION_JSON}) 
-    public String getMemberById(@PathParam("id") int id) {
-        List<Member> list = FACADE.findByID(id); 
-        ArrayList<MemberDTO> allDTO = new ArrayList() ;
-        for (Member member : list) {
-            allDTO.add((new MemberDTO (member))); 
-        }
-        return new Gson().toJson(allDTO); 
-    }
-    
 }
  
 
