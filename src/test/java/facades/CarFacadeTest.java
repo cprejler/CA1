@@ -7,6 +7,8 @@ import javax.persistence.EntityManagerFactory;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -58,7 +60,7 @@ public class CarFacadeTest {
         EntityManager em = emf.createEntityManager();
         try {
             em.getTransaction().begin();
-            em.createNamedQuery("Member.deleteAllRows").executeUpdate();
+            em.createNamedQuery("Cars.deleteAllRows").executeUpdate();
             em.persist(new Car(1997, "Ford", "E350", 3000));
             em.persist(new Car(1999, "Chevy", "Venture", 4900));
             em.persist(new Car(2000, "Chevy", "Venture", 5000));
@@ -82,8 +84,42 @@ public class CarFacadeTest {
         assertEquals(5, facade.getAllCars().size(), "Expects 5 rows in the database");
     }
     
-    
+    @Test
+    public void testFilterByYear(){
+        assertFalse(facade.filterByYear(2000).isEmpty());
+        assertEquals(2000, facade.filterByYear(2000).get(0).getYear());
+        assertTrue(facade.filterByYear(2000).get(0).getModel().contains("Venture"));
+        assertTrue(facade.filterByYear(2000).get(0).getMake().contains("Chevy"));
+        assertEquals(5000, facade.filterByYear(2000).get(0).getPrice(), 0.1);
 
+    }
+    
+    @Test
+    public void testFilterByMake(){
+        assertFalse(facade.filterByMake("Volvo").isEmpty());
+        assertTrue(facade.filterByMake("Volvo").get(0).getMake().contains("Volvo"));
+        assertTrue(facade.filterByMake("Volvo").get(0).getModel().contains("V70"));
+        assertEquals(2005, facade.filterByMake("Volvo").get(0).getYear());
+        assertEquals(44799, facade.filterByMake("Volvo").get(0).getPrice(), 0.1);
+        
+    }
+    @Test
+    public void testFilterByModel(){
+        assertFalse(facade.filterByModel("Venture").isEmpty());
+        assertTrue(facade.filterByModel("Venture").get(0).getModel().contains("Venture"));
+        assertTrue(facade.filterByModel("Venture").get(0).getMake().contains("Chevy"));
+        assertEquals(1999, facade.filterByModel("Venture").get(0).getYear());
+        assertEquals(4900, facade.filterByModel("Venture").get(0).getPrice(), 0.1);
+        
+    }
+    @Test
+    public void testFilterByPrice(){
+        assertFalse(facade.filterByPrice(4900.0).isEmpty());
+        assertEquals(4900, facade.filterByPrice(4900.0).get(0).getPrice(),0.1);
+        assertEquals(1999, facade.filterByPrice(4900.0).get(0).getYear());
+        assertTrue(facade.filterByPrice(4900.0).get(0).getModel().contains("Venture"));
+        assertTrue(facade.filterByPrice(4900.0).get(0).getMake().contains("Chevy"));
+    }
 
 
 }
