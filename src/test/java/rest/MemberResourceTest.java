@@ -96,11 +96,21 @@ public class MemberResourceTest {
 //                .body("msg", equalTo("Hello World"));
 //    }
 
-    @Test
+    //@Test
     public void testCount() throws Exception {
         given()
                 .contentType("application/json")
                 .get("/groupmembers/all").then()
+                .assertThat()
+                .statusCode(HttpStatus.OK_200.getStatusCode())
+                .body("name", equalTo(2));
+    }
+    
+        @Test
+    public void testCount1() throws Exception {
+        given()
+                .contentType("application/json")
+                .get("/groupmembers/count").then()
                 .assertThat()
                 .statusCode(HttpStatus.OK_200.getStatusCode())
                 .body("count", equalTo(2));

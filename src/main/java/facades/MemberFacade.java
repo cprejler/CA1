@@ -1,5 +1,6 @@
 package facades;
 
+import com.google.gson.Gson;
 import dto.MemberDTO;
 import entities.Member;
 import java.util.List;
@@ -41,17 +42,40 @@ public class MemberFacade {
     public List<Member> getAllMembers(){
         EntityManager em = getEntityManager();
         
-        Query query = em.createNamedQuery("Members.getAll");
-        List<Member> members = query.getResultList();
-        System.out.println("dsafasfsa"+members.size());
+      //  Query query = em.createNamedQuery("Members.getAll");
+        //List<Member> members = query.getResultList();
+      //  System.out.println("dsafasfsa"+members.size());
         
-        return members;
+        try {
+            TypedQuery<Member> query = em.createQuery("Select m from Member m", Member.class); 
+            System.out.println(query.getResultList().size());
+            //return new Gson().toJson(query.getResultList()); 
+            return query.getResultList(); 
+        }
+        finally {
+            em.close();
+        }
+    }
+    
+    public long getMembersCount () {
+        EntityManager em = emf.createEntityManager(); 
+        try {
+            long membercount = (long) em.createQuery("SELECT COUNT(r) FROM Member r").getSingleResult(); 
+            return membercount; 
+        }
+        finally {
+            em.close();
+        }
+    }
+        
+        
+        
+       // return members;
         
         
     }
     
         
-    }
     
     
 

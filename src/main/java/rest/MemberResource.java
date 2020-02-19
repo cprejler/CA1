@@ -45,7 +45,20 @@ public class MemberResource {
     @Produces({MediaType.APPLICATION_JSON})
     public String getAllMembers(){
         List<Member> members = FACADE.getAllMembers();
-        return new Gson().toJson(members);
+        System.out.println(members.get(0).getEmail());
+        String json = new Gson().toJson(members); 
+        System.out.println(json);
+        return json; 
     }
- 
+    
+    @GET
+    @Path("count")
+    @Produces({MediaType.APPLICATION_JSON}) 
+    public String getMembersCount () {
+        long count = FACADE.getMembersCount(); 
+        
+        return "{\"count\":" + count + "}";
+    }
 }
+ 
+
