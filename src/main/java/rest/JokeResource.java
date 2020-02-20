@@ -3,6 +3,8 @@ package rest;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import facades.JokeFacade;
+import java.util.ArrayList;
+import java.util.Random;
 import utils.EMF_Creator;
 import javax.persistence.EntityManagerFactory;
 import javax.ws.rs.GET;
@@ -36,12 +38,18 @@ public class JokeResource {
     
     
     @GET
-    @Path("count")
+    @Path("random")
     @Produces({MediaType.APPLICATION_JSON}) 
     public String getCarCount () {
-        long count = FACADE.getJokeCount(); 
+        long count = FACADE.getJokesCount(); 
         
         return "{\"count\":" + count + "}";
+    }
+    @GET
+    @Path("/random")
+    @Produces
+    public String methodName(){
+        return new Gson().toJson(FACADE.getRandomJoke());
     }
 }
  
