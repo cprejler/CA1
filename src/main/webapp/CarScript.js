@@ -1,4 +1,4 @@
-let AllCars = "http://localhost:8080/CA1/api/cars/all";
+let AllCars = "https://casperprejler.xyz/CA1/api/cars/all";
 afetch();
 function afetch(){
 fetch(AllCars)
