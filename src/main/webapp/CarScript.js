@@ -31,7 +31,7 @@ function table1 (list) {
         htmlRows += temp;
     })
     console.log(htmlRows);
-    document.getElementById("CarList").innerHTML = "<table border='1'>" + headerString + htmlRows; 
+    document.getElementById("CarList").innerHTML = "<table class='table table-bordered table-hover table-sm'>" + headerString + htmlRows; 
 }
 function filter(evt) {
     evt.preventDefault();
