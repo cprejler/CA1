@@ -111,7 +111,8 @@ public class CarResourceTest {
                 .get("cars/year/" + 1999).then()
                 .assertThat()
                 .statusCode(HttpStatus.OK_200.getStatusCode())
-                .body("size()", equalTo(1));
+                .body("[0].make", equalTo("Chevy"));
+                
 
     }
 
@@ -122,7 +123,7 @@ public class CarResourceTest {
                 .get("cars/make/" + "Ford").then()
                 .assertThat()
                 .statusCode(HttpStatus.OK_200.getStatusCode())
-                .body("size()", equalTo(1));
+                .body("[0].model", equalTo("E350"));
 
     }
 
@@ -133,7 +134,7 @@ public class CarResourceTest {
                 .get("cars/model/" + "E350").then()
                 .assertThat()
                 .statusCode(HttpStatus.OK_200.getStatusCode())
-                .body("size()", equalTo(1));
+                .body("[0].make", equalTo("Ford"));
 
     }
 
@@ -144,7 +145,7 @@ public class CarResourceTest {
                 .get("cars/price/" + 3000).then()
                 .assertThat()
                 .statusCode(HttpStatus.OK_200.getStatusCode())
-                .body("size()", equalTo(1));
+                .body("[0].make", equalTo("Ford"));
 
     }
 

@@ -10,8 +10,9 @@ import javax.persistence.NamedQuery;
 
 @Entity
 @NamedQueries({
-    @NamedQuery(name = "Member.deleteAllRows", query = "DELETE from Member"),
-    @NamedQuery(name = "Members.getAll", query = "SELECT m from Member m")
+    @NamedQuery(name = "Member.deleteAllRows", query = "DELETE FROM Member"),
+    @NamedQuery(name = "Members.getAll", query = "SELECT m FROM Member m"),
+    @NamedQuery(name = "Members.FindByID", query = "SELECT m FROM Member m WHERE m.id=:id")
 })
 
 public class Member implements Serializable {

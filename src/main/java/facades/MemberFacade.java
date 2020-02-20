@@ -1,10 +1,8 @@
 package facades;
 
-import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import dto.MemberDTO;
 import entities.Member;
-import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -45,15 +43,13 @@ public class MemberFacade {
     public List<MemberDTO> getAllMembers() {
         EntityManager em = getEntityManager();
         try {
-            TypedQuery<Member> query = em.createQuery("Select m from Member m", Member.class);
+            Query query = em.createNamedQuery("Members.getAll");
             List<Member> members = query.getResultList();
             java.lang.reflect.Type listType = new TypeToken<List<MemberDTO>>() {
             }.getType();
             List<MemberDTO> returnValue = new ModelMapper().map(members, listType);
             return returnValue;
 
-            //return new Gson().toJson(query.getResultList()); 
-            //   return query.getResultList(); 
         } finally {
             em.close();
         }
@@ -73,7 +69,7 @@ public class MemberFacade {
     public List<Member> findByID(int id) {
         EntityManager em = emf.createEntityManager();
         try {
-            TypedQuery<Member> query = em.createQuery("Select m from Member m where m.id = :id", Member.class);
+            TypedQuery<Member> query = em.createQuery("SELECT m FROM Member m WHERE m.id = :id", Member.class);
             query.setParameter("id", id);
             return query.getResultList();
         } finally {
