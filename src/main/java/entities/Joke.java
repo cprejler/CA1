@@ -22,7 +22,7 @@ import javax.persistence.NamedQuery;
     @NamedQuery(name = "Joke.deleteAllRows", query = "DELETE from Joke")
 })
 public class Joke implements Serializable {
-
+//kommentar
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
