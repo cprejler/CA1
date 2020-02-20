@@ -89,15 +89,13 @@ public class MemberFacadeTest {
     
     //@Test
     public void testFindByID(){
-        List<Member> member = facade.findByID(0);
+        List<MemberDTO> member = facade.findByID(0);
         String name = member.get(0).getName();
         String github = member.get(0).getGithub();
-        String email = member.get(0).getEmail();
         String studentID = member.get(0).getStudentID();
         
         assertTrue(facade.findByID(1).get(0).getName().contains(name));
         assertTrue(facade.findByID(1).get(0).getGithub().contains(github));
-        assertTrue(facade.findByID(1).get(0).getEmail().contains(email));
         assertTrue(facade.findByID(1).get(0).getStudentID().contains(studentID));
     }
     

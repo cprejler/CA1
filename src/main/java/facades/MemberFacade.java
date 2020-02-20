@@ -66,12 +66,16 @@ public class MemberFacade {
     }
 
     // return members;
-    public List<Member> findByID(int id) {
+    public List<MemberDTO> findByID(int id) {
         EntityManager em = emf.createEntityManager();
         try {
             TypedQuery<Member> query = em.createQuery("SELECT m FROM Member m WHERE m.id = :id", Member.class);
             query.setParameter("id", id);
-            return query.getResultList();
+            List<Member> members = query.getResultList();
+            java.lang.reflect.Type listType = new TypeToken<List<MemberDTO>>() {
+            }.getType();
+            List<MemberDTO> returnValue = new ModelMapper().map(members, listType);
+            return returnValue;
         } finally {
             em.close();
         }
