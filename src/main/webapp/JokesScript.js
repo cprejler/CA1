@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-let AllJokes = "http://localhost:8080/CA1/api/joke/all";
-let JokeByID = "http://localhost:8080/CA1/api/joke/jokes/";
-let RandomJoke = "http://localhost:8080/CA1/api/joke/random";
+let AllJokes = "https://casperprejler.xyz/CA1/api/joke/all";
+let JokeByID = "https://casperprejler.xyz/CA1/api/joke/jokes/";
+let RandomJoke = "https://casperprejler.xyz/CA1/api/joke/random";
 document.getElementById('getJokeByID').addEventListener("click", getJokeByID);
 document.getElementById('getRandomJoke').addEventListener("click", getRandomJoke);
 afetch();
