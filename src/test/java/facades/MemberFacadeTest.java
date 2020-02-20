@@ -1,5 +1,6 @@
 package facades;
 
+import dto.MemberDTO;
 import utils.EMF_Creator;
 import entities.Member;
 import java.util.List;
@@ -81,6 +82,8 @@ public class MemberFacadeTest {
     @Test
     public void testGetAllMembers(){
         assertEquals(4, facade.getAllMembers().size(), "Expects 4 rows in the database");
+        
+        
     }
     
     
