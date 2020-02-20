@@ -2,15 +2,16 @@ package facades;
 
 import utils.EMF_Creator;
 import entities.Member;
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import utils.Settings;
 import utils.EMF_Creator.DbSelector;
 import utils.EMF_Creator.Strategy;
 
@@ -83,11 +84,19 @@ public class MemberFacadeTest {
     }
     
     
-
-//    // TODO: Delete or change this method 
-//    @Test
-//    public void testAFacadeMethod() {
-//        assertEquals(2, facade.getRenameMeCount(), "Expects two rows in the database");
-//    }
+    //@Test
+    public void testFindByID(){
+        List<Member> member = facade.findByID(0);
+        String name = member.get(0).getName();
+        String github = member.get(0).getGithub();
+        String email = member.get(0).getEmail();
+        String studentID = member.get(0).getStudentID();
+        
+        assertTrue(facade.findByID(1).get(0).getName().contains(name));
+        assertTrue(facade.findByID(1).get(0).getGithub().contains(github));
+        assertTrue(facade.findByID(1).get(0).getEmail().contains(email));
+        assertTrue(facade.findByID(1).get(0).getStudentID().contains(studentID));
+    }
+    
 
 }
