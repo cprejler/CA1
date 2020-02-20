@@ -39,7 +39,7 @@ public class JokeResource {
     @Path("count")
     @Produces({MediaType.APPLICATION_JSON}) 
     public String getCarCount () {
-        long count = FACADE.getJokeCount(); 
+        long count = FACADE.getJokesCount(); 
         
         return "{\"count\":" + count + "}";
     }
