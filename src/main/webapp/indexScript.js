@@ -1,5 +1,5 @@
-let Allurl = "http://localhost:8080/CA1/api/groupmembers/all"; 
-let UserById = "http://localhost:8080/CA1/api/groupmembers/members/"; 
+let Allurl = "https://casperprejler.xyz/CA1/api/groupmembers/all"; 
+let UserById = "https://casperprejler.xyz/CA1/api/groupmembers/members/"; 
 
 document.getElementById('getAllUsers').addEventListener("click", getAllUsers);
 document.getElementById('getUserById').addEventListener("click", getUserById);
