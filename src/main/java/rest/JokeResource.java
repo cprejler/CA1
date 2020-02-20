@@ -9,6 +9,7 @@ import utils.EMF_Creator;
 import javax.persistence.EntityManagerFactory;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
@@ -35,16 +36,20 @@ public class JokeResource {
         return "{\"msg\":\"Hello World\"}";
     }
     
-    
+    @GET
+    @Path("all")
+    @Produces({MediaType.APPLICATION_JSON})
+    public String getAllJokes(){
+        return GSON.toJson(FACADE.getAllJokes());
+    }
     
     @GET
-    @Path("random")
+    @Path("joke/{id}")
     @Produces({MediaType.APPLICATION_JSON}) 
-    public String getCarCount () {
-        long count = FACADE.getJokesCount(); 
-        
-        return "{\"count\":" + count + "}";
+    public String getJokeById(@PathParam("id") int id) {
+        return GSON.toJson(FACADE.findByID(id)); 
     }
+    
     @GET
     @Path("/random")
     @Produces
