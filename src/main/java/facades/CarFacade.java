@@ -57,6 +57,48 @@ public class CarFacade {
         }
     }
     
+    public List<Car> filterByYear(Integer year){
+        EntityManager em = getEntityManager();
+        try{
+            Query q = em.createNamedQuery("Cars.filterByYear");
+            q.setParameter("year", year);
+            return q.getResultList();
+        }finally{
+            em.close();
+        }
+    }
+    
+    public List<Car> filterByMake(String make){
+        EntityManager em = getEntityManager();
+        try{
+            Query q = em.createNamedQuery("Cars.filterByMake");
+            q.setParameter("make", make);
+            return q.getResultList();
+        }finally{
+            em.close();
+        }
+    }
+    
+    public List<Car> filterByModel(String model){
+        EntityManager em = getEntityManager();
+        try{
+            Query q = em.createNamedQuery("Cars.filterByModel");
+            q.setParameter("model", model);
+            return q.getResultList();
+        }finally{
+            em.close();
+        }
+    }
+    public List<Car> filterByPrice(Double price){
+        EntityManager em = getEntityManager();
+        try{
+            Query q = em.createNamedQuery("Cars.filterByPrice");
+            q.setParameter("price", price);
+            return q.getResultList();
+        }finally{
+            em.close();
+        }
+    }
     
 
 }
